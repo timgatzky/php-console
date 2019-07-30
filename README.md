@@ -1,14 +1,22 @@
 # PHP Console server library
 
+[![Author](http://img.shields.io/badge/author-@barbushin-blue.svg?style=flat-square)](https://www.linkedin.com/in/barbushin)
+[![GitHub release](https://img.shields.io/github/release/barbushin/php-console.svg?maxAge=2592000&style=flat-square)](https://packagist.org/packages/php-console/php-console)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/barbushin/php-console.svg?style=flat-square)](https://scrutinizer-ci.com/g/barbushin/php-console/code-structure)
+[![Build Status](https://img.shields.io/travis/barbushin/php-console/master.svg?style=flat-square)](https://travis-ci.org/barbushin/php-console)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Packagist](https://img.shields.io/packagist/dt/php-console/php-console.svg?maxAge=86400&style=flat-square)](https://packagist.org/packages/php-console/php-console)
+
 PHP Console allows you to handle PHP errors & exceptions, dump variables, execute PHP code remotely and many other things using [Google Chrome extension PHP Console](https://chrome.google.com/webstore/detail/php-console/nfhmhhlpfleoednkpnnnkolmclajemef) and [PhpConsole server library](https://github.com/barbushin/php-console).
 
 ### Overview
 
 * See [presentation video](http://www.youtube.com/watch?v=_4kG-Zrs2Io).
 * Install Google Chrome extension [PHP Console](https://chrome.google.com/webstore/detail/php-console/nfhmhhlpfleoednkpnnnkolmclajemef).
-* See how it works on [live demo](http://php-console.com/instance/examples) page.
+* See how it works on [live demo](http://consle.com/instance/examples) page.
 * PHP Console extension [features list and screenshots](https://github.com/barbushin/php-console/wiki/PHP-Console-extension-features).
 * PHP Console server library [features list](https://github.com/barbushin/php-console/wiki/PHP-Console-server-features).
+* Chrome extension source code https://github.com/barbushin/php-console-extension 
 
 ### Requirements
 
@@ -23,13 +31,13 @@ PHP Console allows you to handle PHP errors & exceptions, dump variables, execut
 
 	{
 		"require": {
-			"php-console/php-console": "~3.0"
+			"php-console/php-console": "^3.1"
 		}
 	}
 
 Or
 
-	$ composer require php-console/php-console ~3.0
+	$ composer require php-console/php-console
 
 ### Monolog handler
 https://github.com/Seldaek/monolog/blob/master/src/Monolog/Handler/PHPConsoleHandler.php
@@ -57,11 +65,11 @@ https://github.com/unfulvio/wp-php-console (thanks to [@nekojira](https://github
 
 # Usage
 
-You can try most of PHP Console features on [live demo](http://php-console.com/instance/examples) server.
+You can try most of PHP Console features on [live demo](http://consle.com/instance/examples) server.
 
 ## Connector
 
-There is a [PhpConsole\Connector](src/PhpConsole/Connector.php) class that initializes connection between PHP server and Google Chrome extension. Connection is initalized when [PhpConsole\Connector](src/PhpConsole/Connector.php) instance is initialized:
+There is a [PhpConsole\Connector](src/PhpConsole/Connector.php) class that initializes connection between PHP server and Google Chrome extension. Connection is initialized when [PhpConsole\Connector](src/PhpConsole/Connector.php) instance is initialized:
 
 	$connector = PhpConsole\Connector::getInstance();
 
@@ -102,7 +110,7 @@ PhpConsole server library is optimized for lazy initialization only for clients 
 
 ### Protect by password
 
-[![ScreenShot](http://php-console.com/res/screenshot/auth_420.png)](http://php-console.com/instance/examples/#protect_by_password)
+[![ScreenShot](http://consle.com/res/screenshot/auth_420.png)](http://consle.com/instance/examples/#protect_by_password)
 
 	$connector->setPassword('yohoho123', true);
 
@@ -116,11 +124,11 @@ So all PHP Console clients will be automatically redirected to HTTPS.
 
 ### Protect connection by list of allowed IP masks
 
-	$connector->setAllowedIpMasks(array('192.168.*.*'));
+	$connector->setAllowedIpMasks(array('192.168.*.*', '2001:0:5ef5:79fb:*:*:*:*'));
 
 ## Handle errors
 
-[![ScreenShot](http://php-console.com/res/screenshot/errors_420.png)](http://php-console.com/instance/examples/#handle_errors)
+[![ScreenShot](http://consle.com/res/screenshot/errors_420.png)](http://consle.com/instance/examples/#handle_errors)
 
 There is a [PhpConsole\Handler](src/PhpConsole/Handler.php) class that initializes PHP errors & exceptions handlers and provides the next features:
 
@@ -143,7 +151,7 @@ Initialize `PhpConsole\Handler` in the top of your main project script:
 
 ## Debug vars
 
-[![ScreenShot](http://php-console.com/res/screenshot/debug_420.png)](http://php-console.com/instance/examples/#debug_vars)
+[![ScreenShot](http://consle.com/res/screenshot/debug_420.png)](http://consle.com/instance/examples/#debug_vars)
 
 PHP Console has multifunctional and smart vars dumper that allows to
 
@@ -157,11 +165,11 @@ PHP Console has multifunctional and smart vars dumper that allows to
 
 ### How to call
 
-**Longest** native debug method call: 
+**Longest** native debug method call:
 
 	PhpConsole\Connector::getInstance()->getDebugDispatcher()->dispatchDebug($var, 'some.tags');
 
-**Shorter** call debug from Handler: 
+**Shorter** call debug from Handler:
 
 	PhpConsole\Handler::getInstance()->debug($var, 'some.tags');
 
@@ -188,7 +196,7 @@ PHP Console has multifunctional and smart vars dumper that allows to
 
 ## Remote PHP code execution
 
-[![ScreenShot](http://php-console.com/res/screenshot/eval_terminal_420.png)](http://php-console.com/instance/examples/#eval_terminal)
+[![ScreenShot](http://consle.com/res/screenshot/eval_terminal_420.png)](http://consle.com/instance/examples/#eval_terminal)
 
 PHP Console provide a way to execute PHP code on your server remotely, from Google Chrome extension terminal.
 
@@ -196,18 +204,18 @@ PHP Console provide a way to execute PHP code on your server remotely, from Goog
 * Every eval request is signed with unique SHA-256 token
 * Result contains: `output`, `return` and `time` data
 * Errors & exception occurred during PHP code execution will be handled
- 
+
 
 ### Configuration
 
 	$connector = PhpConsole\Connector::getInstance();
 	$connector->setPassword($password);
-	
+
 	// Configure eval provider
 	$evalProvider = $connector->getEvalDispatcher()->getEvalProvider();
 	$evalProvider->addSharedVar('post', $_POST); // so "return $post" code will return $_POST
 	$evalProvider->setOpenBaseDirs(array(__DIR__)); // see http://php.net/open-basedir
-	
+
 	$connector->startEvalRequestsListener(); // must be called in the end of all configurations
 
 
@@ -224,14 +232,14 @@ Read [this article](https://github.com/barbushin/php-console/wiki/Jump-to-file) 
 If you have used PhpConsole `v1.x` and want to migrate to `v3.x`  without any code changes, so just use [PhpConsole\OldVersionAdapter](src/PhpConsole/OldVersionAdapter.php):
 
 	PhpConsole\OldVersionAdapter::register(); // register PhpConsole v1.x class emulator
-	
+
 	// Call old PhpConsole v1 methods as is
 	PhpConsole::start(true, true, $_SERVER['DOCUMENT_ROOT']);
 	PhpConsole::debug('Debug using old method PhpConsole::debug()', 'some,tags');
 	debug('Debug using old function debug()', 'some,tags');
 	echo $undefinedVar;
 	PhpConsole::getInstance()->handleException(new Exception('test'));
-	
+
 	// Call new PhpConsole methods, if you want :)
 	PhpConsole\Connector::getInstance()->setServerEncoding('cp1251');
 	PhpConsole\Helper::register();
